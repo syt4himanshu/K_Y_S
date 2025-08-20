@@ -742,6 +742,13 @@
     .file-input-label:hover {
       background: #047857;
     }
+
+    .sid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
   </style>
 </head>
 
@@ -750,7 +757,12 @@
     <!-- Header -->
     <div class="header">
       <div class="logo">Admin Dashboard</div>
-      <button class="logout-btn" onclick="logout()">↗ Logout</button>
+      <!-- ...existing code... -->
+      <div class="sid">
+        <a href="../forgot.html" class="logout-btn" style="text-decoration:none;">Change Password</a>
+        <button class="logout-btn" onclick="logout()">↗ Logout</button>
+      </div>
+
     </div>
 
     <!-- Stats Cards -->
