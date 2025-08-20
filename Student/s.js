@@ -1,4 +1,4 @@
-guardPage(["student", "teacher", "admin"]);
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('wizardForm');
@@ -60,6 +60,30 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentStep === totalSteps) {
             populateReviewContent();
         }
+        
+        // Show/hide placement reason field based on selection
+        const campusPlacement = document.getElementById('campusPlacement');
+        const placementReasonRow = document.getElementById('placementReasonRow');
+        
+        if (campusPlacement) {
+            if (campusPlacement.value === 'no') {
+                placementReasonRow.style.display = 'block';
+            } else {
+                placementReasonRow.style.display = 'none';
+            }
+            
+            // Add event listener if not already added
+            if (!campusPlacement.hasListener) {
+                campusPlacement.addEventListener('change', function() {
+                    if (this.value === 'no') {
+                        placementReasonRow.style.display = 'block';
+                    } else {
+                        placementReasonRow.style.display = 'none';
+                    }
+                });
+                campusPlacement.hasListener = true;
+            }
+        }
     }
 
     // Validate current step
@@ -74,11 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (!field.value.trim()) {
                 field.classList.add('error');
-                errorMessage.style.display = 'block';
+                if (errorMessage) errorMessage.style.display = 'block';
                 isValid = false;
             } else {
                 field.classList.remove('error');
-                errorMessage.style.display = 'none';
+                if (errorMessage) errorMessage.style.display = 'none';
             }
 
             // Additional validation for specific fields
@@ -86,8 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailPattern.test(field.value)) {
                     field.classList.add('error');
-                    errorMessage.textContent = 'Please enter a valid email address';
-                    errorMessage.style.display = 'block';
+                    if (errorMessage) {
+                        errorMessage.textContent = 'Please enter a valid email address';
+                        errorMessage.style.display = 'block';
+                    }
                     isValid = false;
                 }
             }
@@ -96,74 +122,66 @@ document.addEventListener('DOMContentLoaded', () => {
                 const phonePattern = /^\+?[\d\s-]{10,}$/;
                 if (!phonePattern.test(field.value)) {
                     field.classList.add('error');
-                    errorMessage.textContent = 'Please enter a valid phone number';
-                    errorMessage.style.display = 'block';
+                    if (errorMessage) {
+                        errorMessage.textContent = 'Please enter a valid phone number';
+                        errorMessage.style.display = 'block';
+                    }
                     isValid = false;
                 }
             }
 
-            if (field.id === 'gpa' && field.value) {
-                const gpa = parseFloat(field.value);
-                if (gpa < 0 || gpa > 10) {
+            // Validate admission year
+            if (field.id === 'admissionYear' && field.value) {
+                const year = parseInt(field.value);
+                const currentYear = new Date().getFullYear();
+                if (year < 2000 || year > currentYear) {
                     field.classList.add('error');
-                    errorMessage.textContent = 'SGPA must be between 0 and 10';
-                    errorMessage.style.display = 'block';
+                    if (errorMessage) {
+                        errorMessage.textContent = 'Please enter a valid admission year';
+                        errorMessage.style.display = 'block';
+                    }
                     isValid = false;
                 }
             }
 
-            if (field.id === 'semester' && field.value) {
+            // Validate semester fields
+            if ((field.id === 'semester' || field.id === 'resultSemester') && field.value) {
                 const semester = parseInt(field.value);
                 if (semester < 1 || semester > 8) {
                     field.classList.add('error');
-                    errorMessage.textContent = 'Semester must be between 1 and 8';
-                    errorMessage.style.display = 'block';
+                    if (errorMessage) {
+                        errorMessage.textContent = 'Semester must be between 1 and 8';
+                        errorMessage.style.display = 'block';
+                    }
                     isValid = false;
                 }
             }
 
-            if (field.id === 'resultSemester' && field.value) {
-                const semester = parseInt(field.value);
-                if (semester < 1 || semester > 8) {
-                    field.classList.add('error');
-                    errorMessage.textContent = 'Semester must be between 1 and 8';
-                    errorMessage.style.display = 'block';
-                    isValid = false;
-                }
-            }
-
-            if (field.id === 'percentage' && field.value) {
+            // Validate percentage fields
+            if ((field.id === 'percentage' || field.id === 'semesterPercentage') && field.value) {
                 const percentage = parseFloat(field.value);
                 if (percentage < 0 || percentage > 100) {
                     field.classList.add('error');
-                    errorMessage.textContent = 'Percentage must be between 0 and 100';
-                    errorMessage.style.display = 'block';
-                    isValid = false;
-                }
-            }
-
-            if (field.id === 'semesterPercentage' && field.value) {
-                const percentage = parseFloat(field.value);
-                if (percentage < 0 || percentage > 100) {
-                    field.classList.add('error');
-                    errorMessage.textContent = 'Percentage must be between 0 and 100';
-                    errorMessage.style.display = 'block';
+                    if (errorMessage) {
+                        errorMessage.textContent = 'Percentage must be between 0 and 100';
+                        errorMessage.style.display = 'block';
+                    }
                     isValid = false;
                 }
             }
         });
 
-        // Special validation for checkbox group in step 7
-        if (step === 7) {
-            const checkboxes = currentStepContent.querySelectorAll('input[name="domainsOfInterest"]');
+        // Special validation for checkbox group in step 8 (career objectives)
+        if (step === 8) {
+            const checkboxes = currentStepContent.querySelectorAll('input[name="careerObjective"]');
             const checked = Array.from(checkboxes).some(checkbox => checkbox.checked);
             const errorMessage = currentStepContent.querySelector('.checkbox-group + .error-message');
             
             if (!checked) {
-                errorMessage.style.display = 'block';
+                if (errorMessage) errorMessage.style.display = 'block';
                 isValid = false;
             } else {
-                errorMessage.style.display = 'none';
+                if (errorMessage) errorMessage.style.display = 'none';
             }
         }
 
@@ -178,65 +196,93 @@ document.addEventListener('DOMContentLoaded', () => {
         // Group fields by step
         const sections = [
             {
-                title: 'Personal Information',
-                fields: ['firstName', 'lastName', 'dateOfBirth', 'gender', 'misLoginUid', 'enrollmentNumber']
+                title: 'Student\'s Personal Information',
+                fields: ['department', 'fullName', 'semesterSection', 'rollNo', 'admissionYear', 'mobile', 'email', 'linkedin', 'permanentAddress']
             },
             {
-                title: 'Contact Information',
-                fields: ['email', 'mobileNumber', 'country', 'permanentAddress', 'communicationAddress']
+                title: 'Parent\'s Information',
+                fields: ['fatherName', 'fatherMobile', 'fatherEmail', 'fatherOccupation', 'motherName', 'motherMobile', 'motherEmail', 'motherOccupation']
             },
             {
-                title: 'Family Information',
-                fields: ['fatherName', 'motherName', 'fatherOccupation', 'motherOccupation', 'fatherContact', 'motherContact', 'guardian']
+                title: 'Academic Information (Before Admission)',
+                fields: ['sscPercentage', 'sscYear', 'hsscPercentage', 'hsscYear', 'diplomaPercentage', 'diplomaYear', 'entranceExam', 'entranceScore', 'entranceYear', 'otherQualification', 'otherPercentage', 'otherYear']
             },
             {
-                title: 'Academic Information',
-                fields: ['rollNumber', 'semester', 'batchYear', 'yearOfStudy', 'program', 'gpa']
+                title: 'Academic Information (After Admission)',
+                fields: ['sem1Year', 'sem1SGPA', 'sem1Rank', 'sem1Awards', 'sem2Year', 'sem2SGPA', 'sem2Rank', 'sem2Awards', 'sem3Year', 'sem3SGPA', 'sem3Rank', 'sem3Awards', 'sem1Backlogs', 'sem2Backlogs', 'sem3Backlogs']
             },
             {
-                title: 'Past Education',
-                fields: ['qualification', 'boardUniversity', 'yearOfPassing', 'percentage']
+                title: 'Performance in Career Development Activities',
+                fields: ['aptitudeScore', 'aptitudeDate', 'cocubesScore', 'cocubesDate', 'gatecatScore', 'gatecatDate', 'otherExamName', 'otherExamScore', 'otherExamDate']
             },
             {
-                title: 'Semester Results',
-                fields: ['resultSemester', 'result', 'backlogs', 'semesterPercentage']
+                title: 'Project and Internship Details',
+                fields: ['microProjectTitle', 'microProjectGuide', 'majorProjectTitle', 'majorProjectGuide', 'internship1Company', 'internship1Domain', 'internship1Type', 'internship1Paid', 'internship1Start', 'internship1End', 'internship2Company', 'internship2Domain', 'internship2Type', 'internship2Paid', 'internship2Start', 'internship2End']
             },
             {
-                title: 'Skills & Technologies',
-                fields: ['domainsOfInterest', 'programmingLanguages', 'technologiesFrameworks', 'toolsPlatforms', 'certificateCourses', 'projectResearchWork']
+                title: 'Co-Curricular Activities',
+                fields: [] // Will be handled separately
             },
             {
-                title: 'Competitions & Events',
-                fields: ['codingCompetitions', 'hackathonsIdeathons', 'paperPresentationsExhibitions']
-            },
-            {
-                title: 'Interests & Activities',
-                fields: ['motivation', 'thingsEnjoy', 'professionalMemberships', 'coCurricularParticipation', 'stateNationalParticipation', 'positionsHeld', 'awardsRecognitions', 'alumniConnect', 'industryConnect', 'familyEnvironment', 'stayingIn', 'personalProblems']
-            },
-            {
-                title: 'Career Plan & SWOT Analysis',
-                fields: ['careerPathPreferred', 'competitiveExams', 'currentStatus', 'desiredStatus', 'planSteps', 'departmentSupport', 'strengths', 'weaknesses', 'opportunities', 'threats', 'challenges']
+                title: 'Career Objectives and Skills',
+                fields: ['careerObjective', 'careerDetails', 'careerPreparedness', 'campusPlacement', 'placementReason', 'interpersonalSkills', 'softSkills', 'additionalSkills', 'expectations', 'mentorSignature']
             }
         ];
 
         sections.forEach(section => {
-            reviewHTML += `<h4>${section.title}</h4><div class="review-section">`;
+            let sectionHasContent = false;
+            let sectionHTML = `<h4>${section.title}</h4><div class="review-section">`;
+            
             section.fields.forEach(field => {
-                if (field === 'domainsOfInterest') {
-                    const interests = formData.getAll('domainsOfInterest');
+                if (field === 'careerObjective') {
+                    const interests = formData.getAll('careerObjective');
                     if (interests.length > 0) {
-                        reviewHTML += `<p><strong>Domains of Interest:</strong> ${interests.join(', ')}</p>`;
+                        sectionHTML += `<p><strong>Career Objectives:</strong> ${interests.join(', ')}</p>`;
+                        sectionHasContent = true;
                     }
                 } else {
                     const value = formData.get(field);
                     if (value) {
-                        const label = document.querySelector(`label[for="${field}"]`)?.textContent.replace(' *', '') || field;
-                        reviewHTML += `<p><strong>${label}:</strong> ${value}</p>`;
+                        const label = document.querySelector(`label[for="${field}"]`)?.textContent?.replace(' *', '') || 
+                                     document.querySelector(`label[for="${field}"]`)?.textContent || field;
+                        sectionHTML += `<p><strong>${label}:</strong> ${value}</p>`;
+                        sectionHasContent = true;
                     }
                 }
             });
-            reviewHTML += '</div>';
+            
+            sectionHTML += '</div>';
+            
+            if (sectionHasContent) {
+                reviewHTML += sectionHTML;
+            }
         });
+
+        // Handle co-curricular activities separately
+        const activityRows = document.querySelectorAll('.activity-row');
+        if (activityRows.length > 0) {
+            reviewHTML += '<h4>Co-Curricular Activities</h4><div class="review-section">';
+            
+            activityRows.forEach((row, index) => {
+                const inputs = row.querySelectorAll('input, select');
+                let activityText = '';
+                
+                inputs.forEach(input => {
+                    if (input.value) {
+                        const label = input.parentElement.querySelector('label')?.textContent || 
+                                     input.getAttribute('placeholder') || 
+                                     input.name;
+                        activityText += `${label}: ${input.value}, `;
+                    }
+                });
+                
+                if (activityText) {
+                    reviewHTML += `<p><strong>Activity ${index + 1}:</strong> ${activityText.slice(0, -2)}</p>`;
+                }
+            });
+            
+            reviewHTML += '</div>';
+        }
 
         reviewContent.innerHTML = reviewHTML;
     }
@@ -246,7 +292,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (validateStep(currentStep)) {
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
-            data.domainsOfInterest = formData.getAll('domainsOfInterest');
+            data.careerObjective = formData.getAll('careerObjective');
+            
+            // Collect co-curricular activities
+            const activities = [];
+            document.querySelectorAll('.activity-row').forEach(row => {
+                const activityData = {};
+                row.querySelectorAll('input, select').forEach(input => {
+                    if (input.value) {
+                        activityData[input.name || input.getAttribute('placeholder')] = input.value;
+                    }
+                });
+                if (Object.keys(activityData).length > 0) {
+                    activities.push(activityData);
+                }
+            });
+            data.activities = activities;
             
             // Simulate form submission (replace with actual API call)
             console.log('Form submitted:', data);
@@ -265,6 +326,23 @@ document.addEventListener('DOMContentLoaded', () => {
             if (field.classList.contains('error')) {
                 validateStep(currentStep);
             }
+        });
+        
+        field.addEventListener('change', () => {
+            if (field.classList.contains('error')) {
+                validateStep(currentStep);
+            }
+        });
+    });
+
+    // Add row functionality for co-curricular activities
+    document.querySelectorAll('.add-row-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const activityRow = this.previousElementSibling.cloneNode(true);
+            activityRow.querySelectorAll('input, select').forEach(input => {
+                input.value = '';
+            });
+            this.parentNode.insertBefore(activityRow, this);
         });
     });
 });
