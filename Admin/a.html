@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #f8fafc;
+      color: #334155;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding: 20px 0;
+      border-bottom: 1px solid #e2e8f0;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #0ea5e9;
+    }
+
+    .logo::before {
+      content: "○";
+      font-size: 24px;
+    }
+
+    .logout-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: background-color 0.2s;
+    }
+
+    .logout-btn:hover {
+      background-color: #f1f5f9;
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-height: 80px;
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .stat-icon.users { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+    .stat-icon.students { background: linear-gradient(135deg, #10b981, #047857); }
+    .stat-icon.teachers { background: linear-gradient(135deg, #6366f1, #4338ca); }
+    .stat-icon.active { background: linear-gradient(135deg, #f59e0b, #d97706); }
+
+    .stat-info h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .stat-info p {
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    /* Navigation Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid #e2e8f0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-tab {
+      padding: 12px 16px;
+      background: none;
+      border: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: #64748b;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .nav-tab.active {
+      color: #0ea5e9;
+    }
+
+    .nav-tab.active::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #0ea5e9;
+    }
+
+    /* Section */
+    .section {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .section-header {
+      padding: 20px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .section-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .section-actions input,
+    .section-actions select {
+      padding: 8px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      min-width: 120px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: #0ea5e9;
+      border-color: #0ea5e9;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #0284c7;
+      border-color: #0284c7;
+    }
+
+    /* User Form */
+    #userForm {
+      margin: 15px 20px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: #f9f9f9;
+      display: none;
+    }
+
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .form-row input,
+    .form-row select {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #bbb;
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .password-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+
+    .password-container button {
+      position: absolute;
+      right: 8px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-size: 16px;
+    }
+
+    .form-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .form-buttons button {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn-save {
+      background: #4CAF50;
+    }
+
+    .btn-cancel {
+      background: #f44336;
+    }
+
+    /* User Cards */
+    .user-card {
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid #f1f5f9;
+      flex-wrap: wrap;
+    }
+
+    .user-card:last-child {
+      border-bottom: none;
+    }
+
+    .user-info {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .user-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .user-tags {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .tag.student {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .tag.teacher {
+      background: #e0e7ff;
+      color: #3730a3;
+    }
+
+    .user-id {
+      font-size: 12px;
+      color: #64748b;
+      margin: 0 16px 0 auto;
+      order: 1;
+    }
+
+    .user-actions {
+      display: flex;
+      gap: 8px;
+      order: 2;
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 13px;
+      border-radius: 4px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid;
+    }
+
+    .btn-edit {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+      color: #475569;
+    }
+
+    .btn-edit:hover {
+      background: #f1f5f9;
+    }
+
+    .btn-delete {
+      background: #fef2f2;
+      border-color: #fecaca;
+      color: #dc2626;
+    }
+
+    .btn-delete:hover {
+      background: #fee2e2;
+    }
+
+    /* Teacher allocation styles */
+    .teacher-card {
+      margin: 8px 20px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: #f5f5ff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .teacher-info {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .teacher-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .teacher-actions button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .btn-allocate {
+      background: #4CAF50;
+    }
+
+    .btn-view {
+      background: #2196F3;
+    }
+
+    #allocationArea {
+      margin: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #f9f9f9;
+    }
+
+    #studentList {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    #studentList button {
+      padding: 8px 12px;
+      border: 1px solid #999;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+
+    #studentList button:hover {
+      background: #f0f0f0;
+    }
+
+    /* Modal */
+    #allocatedModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-student {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 8px 0;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .modal-student button {
+      padding: 4px 8px;
+      background: #f44336;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+
+      .header {
+        margin-bottom: 20px;
+        padding: 15px 0;
+      }
+
+      .logo {
+        font-size: 16px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .stat-card {
+        padding: 16px;
+        gap: 12px;
+      }
+
+      .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+      }
+
+      .stat-info h3 {
+        font-size: 20px;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        padding: 15px;
+      }
+
+      .section-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .section-actions input,
+      .section-actions select,
+      .btn {
+        width: 100%;
+        min-width: auto;
+      }
+
+      .user-card {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 15px;
+        gap: 12px;
+      }
+
+      .user-id {
+        order: 0;
+        margin: 0;
+      }
+
+      .user-actions {
+        order: 1;
+        justify-content: center;
+      }
+
+      .form-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .form-row input,
+      .form-row select {
+        min-width: auto;
+        width: 100%;
+      }
+
+      .teacher-card {
+        flex-direction: column;
+        align-items: stretch;
+        margin: 8px 15px;
+        padding: 12px;
+      }
+
+      .teacher-actions {
+        justify-content: center;
+      }
+
+      .teacher-actions button {
+        flex: 1;
+      }
+
+      #allocationArea {
+        margin: 15px;
+        padding: 12px;
+      }
+
+      .nav-tabs {
+        margin-bottom: 20px;
+      }
+
+      .modal-content {
+        margin: 10px;
+        padding: 15px;
+        max-width: calc(100vw - 40px);
+      }
+
+      .modal-student {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 10px;
+      }
+
+      .stats-grid {
+        gap: 10px;
+      }
+
+      .stat-card {
+        padding: 12px;
+        min-height: 60px;
+      }
+
+      .stat-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+      }
+
+      .stat-info h3 {
+        font-size: 18px;
+      }
+
+      .stat-info p {
+        font-size: 12px;
+      }
+
+      .section-header {
+        padding: 12px;
+      }
+
+      .section-title {
+        font-size: 16px;
+      }
+
+      .user-card {
+        padding: 12px;
+      }
+
+      .user-name {
+        font-size: 14px;
+      }
+
+      .btn-sm {
+        padding: 4px 8px;
+        font-size: 12px;
+      }
+
+      .teacher-card {
+        margin: 8px 10px;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">Admin Dashboard</div>
+      <button class="logout-btn" onclick="logout()">↗ Logout</button>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon users">👥</div>
+        <div class="stat-info">
+          <h3 id="totalUsers">0</h3>
+          <p>Total Users</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon students">🎓</div>
+        <div class="stat-info">
+          <h3 id="totalStudents">0</h3>
+          <p>Students</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon teachers">📚</div>
+        <div class="stat-info">
+          <h3 id="totalTeachers">0</h3>
+          <p>Teachers</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon active">📈</div>
+        <div class="stat-info">
+          <h3 id="activeUsers">0</h3>
+          <p>Active Users</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="switchTab('user-management')">User Management</button>
+      <button class="nav-tab" onclick="switchTab('allocate-students')">Allocate Students</button>
+    </div>
+
+    <!-- User Management Section -->
+    <div class="section" id="user-management" style="display:block;">
+      <div class="section-header">
+        <div class="section-title">👥 User Management</div>
+        <div class="section-actions">
+          <input type="text" id="searchInput" placeholder="🔍 Search by User ID..." onkeyup="filterUsers()">
+          <select id="roleFilter" onchange="filterUsers()">
+            <option value="">All</option>
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+          </select>
+          <button class="btn btn-primary" onclick="showAddUserForm()">➕ Add User</button>
+        </div>
+      </div>
+
+      <!-- Add/Edit User Form -->
+      <div id="userForm">
+        <input type="hidden" id="editIndex">
+        <div class="form-row">
+          <input type="text" id="userId" placeholder="User ID">
+          <div class="password-container">
+            <input type="password" id="password" placeholder="Password">
+            <button type="button" onclick="togglePassword()">👁️</button>
+          </div>
+          <select id="role">
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+          </select>
+        </div>
+        <div class="form-buttons">
+          <button class="btn-save" onclick="saveUser()">💾 Save</button>
+          <button class="btn-cancel" onclick="cancelUser()">❌ Cancel</button>
+        </div>
+      </div>
+
+      <!-- User List -->
+      <div id="userList"></div>
+    </div>
+
+    <!-- Allocate Students Section -->
+    <div class="section" id="allocate-students" style="display:none;">
+      <div class="section-header">
+        <div class="section-title">📚 Allocate Students to Teachers</div>
+      </div>
+      <div id="teacherList"></div>
+      <div id="allocationArea" style="display:none;">
+        <h3 id="selectedTeacher"></h3>
+        <div id="studentList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for viewing allocated students -->
+  <div id="allocatedModal">
+    <div class="modal-content">
+      <h3 id="modalTitle">Allocated Students</h3>
+      <div id="allocatedList"></div>
+      <button onclick="closeModal()" style="margin-top:15px; padding:8px 14px; background:#f44336; color:#fff; border:none; border-radius:6px; cursor:pointer; width:100%;">Close</button>
+    </div>
+  </div>
+
+  <script>
+    let users = [];
+    let allocations = {}; // { teacherId: [studentIds...] }
+
+    function switchTab(tabId) {
+      document.querySelectorAll(".section").forEach(sec => sec.style.display = "none");
+      document.getElementById(tabId).style.display = "block";
+      document.querySelectorAll(".nav-tab").forEach(btn => btn.classList.remove("active"));
+      event.target.classList.add("active");
+
+      if (tabId === "allocate-students") renderTeachers();
+    }
+
+    // ------------------ USER MANAGEMENT ------------------ //
+    function showAddUserForm() {
+      document.getElementById("userForm").style.display = "block";
+      document.getElementById("editIndex").value = "";
+      document.getElementById("userId").value = "";
+      document.getElementById("password").value = "";
+      document.getElementById("role").value = "student";
+    }
+
+    function saveUser() {
+      const userId = document.getElementById("userId").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const role = document.getElementById("role").value;
+      const editIndex = document.getElementById("editIndex").value;
+
+      if (!userId || !password) {
+        alert("Please enter User ID and Password");
+        return;
+      }
+
+      if (editIndex === "") {
+        users.push({ userId, password, role });
+      } else {
+        users[editIndex] = { userId, password, role };
+      }
+
+      document.getElementById("userForm").style.display = "none";
+      renderUsers();
+    }
+
+    function cancelUser() {
+      document.getElementById("userForm").style.display = "none";
+    }
+
+    function renderUsers() {
+      const userList = document.getElementById("userList");
+      userList.innerHTML = "";
+
+      users.forEach((user, index) => {
+        const div = document.createElement("div");
+        div.className = "user-card";
+
+        div.innerHTML = `
+          <div class="user-info">
+            <div class="user-name"><b>${user.userId}</b></div>
+            <div class="user-tags"><span class="tag ${user.role}">${user.role}</span></div>
+          </div>
+          <div class="user-id">UID: ${user.userId}</div>
+          <div class="user-actions">
+            <button class="btn-sm btn-edit" onclick="editUser(${index})">✏ Edit</button>
+            <button class="btn-sm btn-delete" onclick="deleteUser(${index})">🗑 Delete</button>
+          </div>
+        `;
+        userList.appendChild(div);
+      });
+
+      updateStats();
+      filterUsers();
+    }
+
+    function editUser(index) {
+      const user = users[index];
+      document.getElementById("userForm").style.display = "block";
+      document.getElementById("editIndex").value = index;
+      document.getElementById("userId").value = user.userId;
+      document.getElementById("password").value = user.password;
+      document.getElementById("role").value = user.role;
+    }
+
+    function deleteUser(index) {
+      if (confirm("Are you sure you want to delete this user?")) {
+        users.splice(index, 1);
+        renderUsers();
+      }
+    }
+
+    function filterUsers() {
+      const search = document.getElementById("searchInput").value.toLowerCase();
+      const roleFilter = document.getElementById("roleFilter").value;
+      const userCards = document.querySelectorAll("#userList .user-card");
+
+      userCards.forEach(card => {
+        const userName = card.querySelector(".user-name").textContent.toLowerCase();
+        const role = card.querySelector(".tag").textContent.toLowerCase();
+
+        if ((userName.includes(search)) && (roleFilter === "" || role === roleFilter)) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    function updateStats() {
+      document.getElementById("totalUsers").innerText = users.length;
+      document.getElementById("totalStudents").innerText = users.filter(u => u.role === "student").length;
+      document.getElementById("totalTeachers").innerText = users.filter(u => u.role === "teacher").length;
+      document.getElementById("activeUsers").innerText = users.length;
+    }
+
+    function togglePassword() {
+      const pwdInput = document.getElementById("password");
+      pwdInput.type = pwdInput.type === "password" ? "text" : "password";
+    }
+
+    // ------------------ ALLOCATE STUDENTS ------------------ //
+    function renderTeachers() {
+      const teacherList = document.getElementById("teacherList");
+      teacherList.innerHTML = "";
+      const teachers = users.filter(u => u.role === "teacher");
+
+      teachers.forEach(t => {
+        const div = document.createElement("div");
+        div.className = "teacher-card";
+
+        div.innerHTML = `
+          <div class="teacher-info">
+            <span>👩‍🏫 <b>${t.userId}</b> (Allocated: ${allocations[t.userId]?.length || 0}/10)</span>
+          </div>
+          <div class="teacher-actions">
+            <button class="btn-allocate" onclick="showAllocation('${t.userId}')">➕ Allocate</button>
+            <button class="btn-view" onclick="viewAllocated('${t.userId}')">👁 View</button>
+          </div>
+        `;
+        teacherList.appendChild(div);
+      });
+    }
+
+    function showAllocation(teacherId) {
+      document.getElementById("allocationArea").style.display = "block";
+      document.getElementById("selectedTeacher").innerText = "Allocating Students to Teacher: " + teacherId;
+
+      const studentList = document.getElementById("studentList");
+      studentList.innerHTML = "";
+
+      const allocated = allocations[teacherId] || [];
+      const unallocatedStudents = users.filter(u => u.role === "student" && !isStudentAllocated(u.userId));
+
+      if (allocated.length >= 10) {
+        studentList.innerHTML = "<p style='color:red;'>❌ This teacher already has 10 students allocated.</p>";
+        return;
+      }
+
+      if (unallocatedStudents.length === 0) {
+        studentList.innerHTML = "<p style='color:gray;'>No unallocated students available.</p>";
+        return;
+      }
+
+      unallocatedStudents.forEach(s => {
+        const btn = document.createElement("button");
+        btn.textContent = "Allocate " + s.userId;
+        btn.onclick = () => allocateStudent(teacherId, s.userId);
+        studentList.appendChild(btn);
+      });
+    }
+
+    function isStudentAllocated(studentId) {
+      return Object.values(allocations).some(students => students.includes(studentId));
+    }
+
+    function allocateStudent(teacherId, studentId) {
+      if (!allocations[teacherId]) allocations[teacherId] = [];
+      if (allocations[teacherId].length >= 10) {
+        alert("This teacher already has 10 students!");
+        return;
+      }
+      allocations[teacherId].push(studentId);
+      showAllocation(teacherId);
+      renderTeachers();
+    }
+
+    // ------------------ MODAL VIEW + DEALLOCATE ------------------ //
+    function viewAllocated(teacherId) {
+      const modal = document.getElementById("allocatedModal");
+      modal.style.display = "flex";
+      document.getElementById("modalTitle").innerText = "Allocated Students of Teacher: " + teacherId;
+
+      const allocatedList = document.getElementById("allocatedList");
+      allocatedList.innerHTML = "";
+
+      const students = allocations[teacherId] || [];
+      if (students.length === 0) {
+        allocatedList.innerHTML = "<p style='color:gray;'>No students allocated.</p>";
+        return;
+      }
+
+      students.forEach((sId, index) => {
+        const div = document.createElement("div");
+        div.className = "modal-student";
+
+        div.innerHTML = `
+          <span>👨‍🎓 ${sId}</span>
+          <button onclick="deallocateStudent('${teacherId}', '${sId}')">❌ Remove</button>
+        `;
+        allocatedList.appendChild(div);
+      });
+    }
+
+    function closeModal() {
+      document.getElementById("allocatedModal").style.display = "none";
+    }
+
+    function deallocateStudent(teacherId, studentId) {
+      allocations[teacherId] = allocations[teacherId].filter(s => s !== studentId);
+      viewAllocated(teacherId);
+      renderTeachers();
+    }
+
+    
+        // Logout function
+        async function logout() {
+          const token = localStorage.getItem("access_token");
+
+          if (!token) {
+            console.log("No token found, already logged out.");
+            window.location.href = "../login.html"; // redirect
+            return;
+          }
+
+          try {
+            const response = await fetch("http://localhost:5000/auth/logout", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+              }
+            });
+
+            if (response.ok) {
+              console.log("Successfully logged out");
+            } else {
+              console.error("Logout failed:", await response.json());
+            }
+          } catch (error) {
+            console.error("Error during logout:", error);
+          }
+
+          // Clear token regardless of API response
+          localStorage.removeItem("access_token");
+          window.location.href = "../login.html"; // redirect to login page
+        }
+
+    
+
+    // Initialize the dashboard
+    window.addEventListener('load', function() {
+      renderUsers();
+    });
+  </script>
+</body>
+</html>

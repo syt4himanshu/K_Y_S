@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Know Your Student Form</title>
+    <link rel="stylesheet" href="./s.css">
+</head>
+<body>
+    <div class="form-container">
+        <!-- Header -->
+        <div class="form-header">
+            <h1 class="form-title">Know Your Student Form</h1>
+            <p class="form-subtitle">Department of Computer Engineering</p>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="progress-container">
+            <div class="progress-info">
+                <span class="progress-text">Progress</span>
+                <span class="progress-percentage">10%</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill"></div>
+            </div>
+            <div class="step-indicators">
+                <div class="step-indicator active">1</div>
+                <div class="step-indicator">2</div>
+                <div class="step-indicator">3</div>
+                <div class="step-indicator">4</div>
+                <div class="step-indicator">5</div>
+                <div class="step-indicator">6</div>
+                <div class="step-indicator">7</div>
+                <div class="step-indicator">8</div>
+                <div class="step-indicator">9</div>
+                <div class="step-indicator">10</div>
+            </div>
+        </div>
+
+        <!-- Form Content -->
+        <div class="form-content">
+            <form id="wizardForm">
+                <!-- Step 1: Personal Information -->
+                <div class="step-content active" data-step="1">
+                    <h2 class="step-title">Personal Information</h2>
+                    <p class="step-description">Tell us about yourself</p>
+                    
+                    <div class="form-row two-cols">
+                        <div class="form-group">
+                            <label for="firstName" class="form-label">First Name <span class="required">*</span></label>
+                            <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Enter your first name" required>
+                            <div class="error-message">Please enter your first name</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" class="form-label">Last Name <span class="required">*</span></label>
+                            <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Enter your last name" required>
+                            <div class="error-message">Please enter your last name</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row two-cols">
+                        <div class="form-group">
+                            <label for="dateOfBirth" class="form-label">Date of Birth <span class="required">*</span></label>
+                            <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-input" required>
+                            <div class="error-message">Please select your date of birth</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender" class="form-label">Gender <span class="required">*</span></label>
+                            <select id="gender" name="gender" class="form-select" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                                <option value="prefer-not-to-say">Prefer not to say</option>
+                            </select>
+                            <div class="error-message">Please select your gender</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row two-cols">
+                        <div class="form-group">
+                            <label for="misLoginUid" class="form-label">MIS Login UID <span class="required">*</span></label>
+                            <input type="text" id="misLoginUid" name="misLoginUid" class="form-input" placeholder="Enter your MIS login UID" required>
+                            <div class="error-message">Please enter your MIS login UID</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="enrollmentNumber" class="form-label">Enrollment Number <span class="required">*</span></label>
+                            <input type="text" id="enrollmentNumber" name="enrollmentNumber" class="form-input" placeholder="Enter your enrollment number" required>
+                            <div class="error-message">Please enter your enrollment number</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Contact Information -->
+                <div class="step-content" data-step="2">
+                    <h2 class="step-title">Contact Information</h2>
+                    <p class="step-description">How can we reach you?</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="your.email@example.com" required>
+                            <div class="error-message">Please enter a valid email address</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row two-cols">
+                        <div class="form-group">
+                            <label for="mobileNumber" class="form-label">Mobile Number <span class="required">*</span></label>
+                            <input type="tel" id="mobileNumber" name="mobileNumber" class="form-input" placeholder="+1 (555) 123-4567" required>
+                            <div class="error-message">Please enter a valid mobile number</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="country" class="form-label">Country <span class="required">*</span></label>
+                            <select id="country" name="country" class="form-select" required>
+                                <option value="">Select Country</option>
+                                <option value="us">United States</option>
+                                <option value="ca">Canada</option>
+                                <option value="uk">United Kingdom</option>
+                                <option value="in">India</option>
+                                <option value="au">Australia</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <div class="error-message">Please select your country</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="permanentAddress" class="form-label">Permanent Address</label>
+                            <textarea id="permanentAddress" name="permanentAddress" class="form-input textarea" placeholder="Enter your permanent address"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="communicationAddress" class="form-label">Communication Address</label>
+                            <textarea id="communicationAddress" name="communicationAddress" class="form-input textarea" placeholder="Enter your communication address"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Family Information -->
+                <div class="step-content" data-step="3">
+                    <h2 class="step-title">Family Information</h2>
+                    <p class="step-description">Tell us about your family</p>
+                    
+                    <div class="form-row two-cols">
+                        <div class="form-group">
+                            <label for="fatherName" class="form-label">Father's Name</label>
+                            <input type="text" id="fatherName" name="fatherName" class="form-input" placeholder="Enter father's name">
+                            <div class="error-message">Please enter father's name</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="motherName" class="form-label">Mother's Name</label>
+                            <input type="text" id="motherName" name="motherName" class="form-input" placeholder="Enter mother's name">
+                            <div class="error-message">Please enter mother's name</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row two-cols">
+                        <div class="form-group">
+                            <label for="fatherOccupation" class="form-label">Father's Occupation</label>
+                            <input type="text" id="fatherOccupation" name="fatherOccupation" class="form-input" placeholder="Enter father's occupation">
+                            <div class="error-message">Please enter father's occupation</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="motherOccupation" class="form-label">Mother's Occupation</label>
+                            <input type="text" id="motherOccupation" name="motherOccupation" class="form-input" placeholder="Enter mother's occupation">
+                            <div class="error-message">Please enter mother's occupation</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row two-cols">
+                        <div class="form-group">
+                            <label for="fatherContact" class="form-label">Father's Contact</label>
+                            <input type="tel" id="fatherContact" name="fatherContact" class="form-input" placeholder="+1 (555) 123-4567">
+                            <div class="error-message">Please enter a valid contact number</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="motherContact" class="form-label">Mother's Contact</label>
+                            <input type="tel" id="motherContact" name="motherContact" class="form-input" placeholder="+1 (555) 123-4567">
+                            <div class="error-message">Please enter a valid contact number</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="guardian" class="form-label">Guardian</label>
+                            <input type="text" id="guardian" name="guardian" class="form-input" placeholder="Enter guardian's name">
+                            <div class="error-message">Please enter guardian's name</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Academic Information -->
+                <div class="step-content" data-step="4">
+                    <h2 class="step-title">Academic Information</h2>
+                    <p class="step-description">Tell us about your academic background</p>
+                    
+                    <div class="form-row two-cols">
+                        <div class="form-group">
+                            <label for="rollNumber" class="form-label">Roll Number <span class="required">*</span></label>
+                            <input type="text" id="rollNumber" name="rollNumber" class="form-input" placeholder="Enter your roll number" required>
+                            <div class="error-message">Please enter your roll number</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="semester" class="form-label">Semester <span class="required">*</span></label>
+                            <input type="number" id="semester" name="semester" class="form-input" min="1" max="8" placeholder="Enter current semester" required>
+                            <div class="error-message">Please enter a valid semester (1-8)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row two-cols">
+                        <div class="form-group">
+                            <label for="batchYear" class="form-label">Batch Year <span class="required">*</span></label>
+                            <input type="text" id="batchYear" name="batchYear" class="form-input" placeholder="e.g., 2023" required>
+                            <div class="error-message">Please enter your batch year</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="yearOfStudy" class="form-label">Year of Study <span class="required">*</span></label>
+                            <select id="yearOfStudy" name="yearOfStudy" class="form-select" required>
+                                <option value="">Select Year</option>
+                                <option value="1">First Year</option>
+                                <option value="2">Second Year</option>
+                                <option value="3">Third Year</option>
+                                <option value="4">Fourth Year</option>
+                                <option value="graduate">Graduate</option>
+                            </select>
+                            <div class="error-message">Please select your year of study</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="program" class="form-label">Program of Study <span class="required">*</span></label>
+                            <select id="program" name="program" class="form-select" required>
+                                <option value="">Select Program</option>
+                                <option value="computer-engineering">Computer Engineering</option>
+                                <option value="software-engineering">Software Engineering</option>
+                                <option value="electrical-engineering">Electrical Engineering</option>
+                                <option value="computer-science">Computer Science</option>
+                                <option value="information-technology">Information Technology</option>
+                            </select>
+                            <div class="error-message">Please select your program</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gpa" class="form-label">Current SGPA</label>
+                            <input type="number" id="gpa" name="gpa" class="form-input" placeholder="3.75" min="0" max="10" step="0.01">
+                            <div class="error-message">SGPA must be between 0 and 10</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Past Education -->
+                <div class="step-content" data-step="5">
+                    <h2 class="step-title">Past Education</h2>
+                    <p class="step-description">Provide details of your previous education</p>
+                    
+                    <div class="form-row two-cols">
+                        <div class="form-group">
+                            <label for="qualification" class="form-label">Qualification <span class="required">*</span></label>
+                            <input type="text" id="qualification" name="qualification" class="form-input" placeholder="e.g., High School, Diploma" required>
+                            <div class="error-message">Please enter your qualification</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="boardUniversity" class="form-label">Board/University <span class="required">*</span></label>
+                            <input type="text" id="boardUniversity" name="boardUniversity" class="form-input" placeholder="Enter board or university" required>
+                            <div class="error-message">Please enter board or university</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row two-cols">
+                        <div class="form-group">
+                            <label for="yearOfPassing" class="form-label">Year of Passing <span class="required">*</span></label>
+                            <input type="text" id="yearOfPassing" name="yearOfPassing" class="form-input" placeholder="e.g., 2020" required>
+                            <div class="error-message">Please enter year of passing</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="percentage" class="form-label">Percentage <span class="required">*</span></label>
+                            <input type="number" id="percentage" name="percentage" class="form-input" placeholder="e.g., 85.5" min="0" max="100" step="0.1" required>
+                            <div class="error-message">Please enter a valid percentage (0-100)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 6: Semester Results -->
+                <div class="step-content" data-step="6">
+                    <h2 class="step-title">Semester Results</h2>
+                    <p class="step-description">Provide details of your semester results</p>
+                    
+                    <div class="form-row two-cols">
+                        <div class="form-group">
+                            <label for="resultSemester" class="form-label">Semester <span class="required">*</span></label>
+                            <input type="number" id="resultSemester" name="resultSemester" class="form-input" min="1" max="8" placeholder="Enter semester" required>
+                            <div class="error-message">Please enter a valid semester (1-8)</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="result" class="form-label">Result <span class="required">*</span></label>
+                            <select id="result" name="result" class="form-select" required>
+                                <option value="">Select Result</option>
+                                <option value="Pass">Pass</option>
+                                <option value="Fail">Fail</option>
+                            </select>
+                            <div class="error-message">Please select result</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row two-cols">
+                        <div class="form-group">
+                            <label for="backlogs" class="form-label">Backlogs</label>
+                            <input type="text" id="backlogs" name="backlogs" class="form-input" placeholder="Enter backlogs, if any">
+                            <div class="error-message">Please enter backlogs</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="semesterPercentage" class="form-label">Percentage</label>
+                            <input type="number" id="semesterPercentage" name="semesterPercentage" class="form-input" placeholder="e.g., 85.5" min="0" max="100" step="0.1">
+                            <div class="error-message">Please enter a valid percentage (0-100)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 7: Skills & Technologies -->
+                <div class="step-content" data-step="7">
+                    <h2 class="step-title">Skills & Technologies</h2>
+                    <p class="step-description">What are your areas of expertise?</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Domains of Interest <span class="required">*</span></label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="domainsOfInterest" value="web-development">
+                                <span>Web Development</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="domainsOfInterest" value="mobile-development">
+                                <span>Mobile Development</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="domainsOfInterest" value="machine-learning">
+                                <span>Machine Learning</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="domainsOfInterest" value="cybersecurity">
+                                <span>Cybersecurity</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="domainsOfInterest" value="data-science">
+                                <span>Data Science</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="domainsOfInterest" value="cloud-computing">
+                                <span>Cloud Computing</span>
+                            </label>
+                        </div>
+                        <div class="error-message">Please select at least one domain of interest</div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="programmingLanguages" class="form-label">Programming Languages</label>
+                            <input type="text" id="programmingLanguages" name="programmingLanguages" class="form-input" placeholder="e.g., Python, JavaScript, Java, C++">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="technologiesFrameworks" class="form-label">Technologies/Frameworks</label>
+                            <input type="text" id="technologiesFrameworks" name="technologiesFrameworks" class="form-input" placeholder="e.g., React, Django, TensorFlow">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="toolsPlatforms" class="form-label">Tools/Platforms</label>
+                            <input type="text" id="toolsPlatforms" name="toolsPlatforms" class="form-input" placeholder="e.g., Git, Docker, AWS">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="certificateCourses" class="form-label">Certificate Courses</label>
+                            <textarea id="certificateCourses" name="certificateCourses" class="form-input textarea" placeholder="List any certificate courses completed..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="projectResearchWork" class="form-label">Project/Research Work</label>
+                            <textarea id="projectResearchWork" name="projectResearchWork" class="form-input textarea" placeholder="Describe significant projects or research work..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 8: Competitions & Events -->
+                <div class="step-content" data-step="8">
+                    <h2 class="step-title">Competitions & Events</h2>
+                    <p class="step-description">Share your participation in competitions and events</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="codingCompetitions" class="form-label">Coding Competitions</label>
+                            <textarea id="codingCompetitions" name="codingCompetitions" class="form-input textarea" placeholder="List coding competitions participated in..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="hackathonsIdeathons" class="form-label">Hackathons/Ideathons</label>
+                            <textarea id="hackathonsIdeathons" name="hackathonsIdeathons" class="form-input textarea" placeholder="List hackathons or ideathons participated in..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="paperPresentationsExhibitions" class="form-label">Paper Presentations/Exhibitions</label>
+                            <textarea id="paperPresentationsExhibitions" name="paperPresentationsExhibitions" class="form-input textarea" placeholder="List paper presentations or exhibitions..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 9: Interests & Activities -->
+                <div class="step-content" data-step="9">
+                    <h2 class="step-title">Interests & Activities</h2>
+                    <p class="step-description">Tell us about your interests and activities</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="motivation" class="form-label">Motivation</label>
+                            <textarea id="motivation" name="motivation" class="form-input textarea" placeholder="What motivates you?"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="thingsEnjoy" class="form-label">Things You Enjoy</label>
+                            <textarea id="thingsEnjoy" name="thingsEnjoy" class="form-input textarea" placeholder="What activities or hobbies do you enjoy?"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="professionalMemberships" class="form-label">Professional Memberships</label>
+                            <input type="text" id="professionalMemberships" name="professionalMemberships" class="form-input" placeholder="List any professional memberships...">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="coCurricularParticipation" class="form-label">Co-Curricular Participation</label>
+                            <textarea id="coCurricularParticipation" name="coCurricularParticipation" class="form-input textarea" placeholder="Describe your co-curricular activities..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="stateNationalParticipation" class="form-label">State/National Participation</label>
+                            <textarea id="stateNationalParticipation" name="stateNationalParticipation" class="form-input textarea" placeholder="List state or national level participations..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="positionsHeld" class="form-label">Positions Held</label>
+                            <textarea id="positionsHeld" name="positionsHeld" class="form-input textarea" placeholder="List any leadership positions held..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="awardsRecognitions" class="form-label">Awards/Recognitions</label>
+                            <textarea id="awardsRecognitions" name="awardsRecognitions" class="form-input textarea" placeholder="List any awards or recognitions received..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="alumniConnect" class="form-label">Alumni Connect</label>
+                            <textarea id="alumniConnect" name="alumniConnect" class="form-input textarea" placeholder="Describe any connections with alumni..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="industryConnect" class="form-label">Industry Connect</label>
+                            <textarea id="industryConnect" name="industryConnect" class="form-input textarea" placeholder="Describe any industry connections..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="familyEnvironment" class="form-label">Family Environment <span class="required">*</span></label>
+                            <select id="familyEnvironment" name="familyEnvironment" class="form-select" required>
+                                <option value="">Select Family Environment</option>
+                                <option value="Supportive">Supportive</option>
+                                <option value="Not Supportive">Not Supportive</option>
+                            </select>
+                            <div class="error-message">Please select family environment</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="stayingIn" class="form-label">Staying In <span class="required">*</span></label>
+                            <select id="stayingIn" name="stayingIn" class="form-select" required>
+                                <option value="">Select Staying In</option>
+                                <option value="Hostel">Hostel</option>
+                                <option value="PG">PG</option>
+                                <option value="With Parents">With Parents</option>
+                            </select>
+                            <div class="error-message">Please select staying arrangement</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="personalProblems" class="form-label">Personal Problems</label>
+                            <textarea id="personalProblems" name="personalProblems" class="form-input textarea" placeholder="Describe any personal challenges..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 10: Career Plan & SWOT Analysis -->
+                <div class="step-content" data-step="10">
+                    <h2 class="step-title">Career Plan & SWOT Analysis</h2>
+                    <p class="step-description">Share your career plans and self-assessment</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="careerPathPreferred" class="form-label">Career Path Preferred <span class="required">*</span></label>
+                            <select id="careerPathPreferred" name="careerPathPreferred" class="form-select" required>
+                                <option value="">Select Career Path</option>
+                                <option value="Placement">Placement</option>
+                                <option value="Higher Studies">Higher Studies</option>
+                                <option value="Entrepreneurship">Entrepreneurship</option>
+                            </select>
+                            <div class="error-message">Please select a career path</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="competitiveExams" class="form-label">Competitive Exams</label>
+                            <textarea id="competitiveExams" name="competitiveExams" class="form-input textarea" placeholder="List any competitive exams planned or taken..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row two-cols">
+                        <div class="form-group">
+                            <label for="currentStatus" class="form-label">Current Status</label>
+                            <textarea id="currentStatus" name="currentStatus" class="form-input textarea" placeholder="Describe your current status..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="desiredStatus" class="form-label">Desired Status</label>
+                            <textarea id="desiredStatus" name="desiredStatus" class="form-input textarea" placeholder="Describe your desired status..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="planSteps" class="form-label">Plan Steps</label>
+                            <textarea id="planSteps" name="planSteps" class="form-input textarea" placeholder="Outline steps to achieve your career goals..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="departmentSupport" class="form-label">Department Support Needed</label>
+                            <textarea id="departmentSupport" name="departmentSupport" class="form-input textarea" placeholder="What support do you need from the department?"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row two-cols">
+                        <div class="form-group">
+                            <label for="strengths" class="form-label">Strengths</label>
+                            <textarea id="strengths" name="strengths" class="form-input textarea" placeholder="List your strengths..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="weaknesses" class="form-label">Weaknesses</label>
+                            <textarea id="weaknesses" name="weaknesses" class="form-input textarea" placeholder="List your weaknesses..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row two-cols">
+                        <div class="form-group">
+                            <label for="opportunities" class="form-label">Opportunities</label>
+                            <textarea id="opportunities" name="opportunities" class="form-input textarea" placeholder="List opportunities you see..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="threats" class="form-label">Threats</label>
+                            <textarea id="threats" name="threats" class="form-input textarea" placeholder="List potential threats..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="challenges" class="form-label">Challenges</label>
+                            <textarea id="challenges" name="challenges" class="form-input textarea" placeholder="Describe any challenges you face..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 11: Review & Submit -->
+                <div class="step-content" data-step="11">
+                    <h2 class="step-title">Review & Submit</h2>
+                    <p class="step-description">Please review your information before submitting</p>
+                    
+                    <div id="reviewContent" style="background: #f8f9ff; padding: 25px; border-radius: 12px; margin: 20px 0;">
+                        <!-- Review content will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="termsAccepted" name="termsAccepted" required>
+                                <span>I confirm that all the information provided is accurate and I agree to the terms and conditions <span class="required">*</span></span>
+                            </label>
+                            <div class="error-message">Please accept the terms and conditions</div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Navigation -->
+        <div class="form-navigation">
+            <button type="button" id="prevBtn" class="nav-button btn-previous" disabled>
+                ← Previous
+            </button>
+            <div class="step-counter">
+                Step <span id="currentStep">1</span> of 11
+            </div>
+            <button type="button" id="nextBtn" class="nav-button btn-next">
+                Next →
+            </button>
+        </div>
+    </div>
+    <script src="./s.js"></script>
+</body>
+</html>
