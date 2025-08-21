@@ -35,7 +35,7 @@
                 <div class="step-indicator">7</div>
                 <div class="step-indicator">8</div>
                 <div class="step-indicator">9</div>
-                <div class="step-indicator">10</div>
+
             </div>
         </div>
 
@@ -47,19 +47,11 @@
                     <h2 class="step-title">Student's Personal Information</h2>
                     <p class="step-description">Please provide your personal details</p>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="department" class="form-label">Name of Department <span
-                                    class="required">*</span></label>
-                            <input type="text" id="department" name="department" class="form-input"
-                                placeholder="Enter department name" required>
-                            <div class="error-message">Please enter department name</div>
-                        </div>
-                    </div>
+
 
                     <div class="form-row two-cols">
                         <div class="form-group">
-                            <label for="fullName" class="form-label">Full Name <span class="required">*</span></label>
+                            <label for="fullName" class="form-label">Name <span class="required">*</span></label>
                             <input type="text" id="fullName" name="fullName" class="form-input"
                                 placeholder="Enter your full name" required>
                             <div class="error-message">Please enter your full name</div>
@@ -157,7 +149,8 @@
                         <div class="form-group">
                             <label for="fatherMobile" class="form-label">Father's Mobile No.</label>
                             <input type="tel" id="fatherMobile" name="fatherMobile" class="form-input"
-                                placeholder="+91 1234567890">
+                                placeholder="+91 1234567890" required>
+                            <div class="error-message">Please enter Mobile No.</div>
                         </div>
                     </div>
 
@@ -173,7 +166,8 @@
                         <div class="form-group">
                             <label for="fatherOccupation" class="form-label">Father's Occupation</label>
                             <input type="text" id="fatherOccupation" name="fatherOccupation" class="form-input"
-                                placeholder="Enter father's occupation">
+                                placeholder="Enter father's occupation" required>
+                            <div class="error-message">Please enter father's occupation</div>
                         </div>
                     </div>
 
@@ -188,7 +182,8 @@
                         <div class="form-group">
                             <label for="motherMobile" class="form-label">Mother's Mobile No.</label>
                             <input type="tel" id="motherMobile" name="motherMobile" class="form-input"
-                                placeholder="+91 1234567890">
+                                placeholder="+91 1234567890" required>
+                            <div class="error-message">Please enter Mother's mobile number</div>
                         </div>
                     </div>
 
@@ -204,7 +199,8 @@
                         <div class="form-group">
                             <label for="motherOccupation" class="form-label">Mother's Occupation</label>
                             <input type="text" id="motherOccupation" name="motherOccupation" class="form-input"
-                                placeholder="Enter mother's occupation">
+                                placeholder="Enter mother's occupation" required>
+                            <div class="error-message">Please enter Mother's Occupation</div>
                         </div>
                     </div>
                 </div>
@@ -234,33 +230,18 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label class="form-label">HSSC (XII) Details</label>
+                            <label class="form-label">HSSC (XII)/Diploma Details</label>
                             <div class="form-row two-cols">
                                 <div class="form-group">
                                     <input type="text" id="hsscPercentage" name="hsscPercentage" class="form-input"
-                                        placeholder="Percentage/Grade">
-
+                                        placeholder="Percentage/Grade" required>
+                                    <div class="error-message">Please enter HSSC Details</div>
                                 </div>
                                 <div class="form-group">
                                     <input type="text" id="hsscYear" name="hsscYear" class="form-input"
-                                        placeholder="Year of Passing">
+                                        placeholder="Year of Passing" required>
+                                    <div class="error-message">Please Enter the passing year t</div>
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Diploma Details (if applicable)</label>
-                            <div class="form-row two-cols">
-                                <div class="form-group">
-                                    <input type="text" id="diplomaPercentage" name="diplomaPercentage"
-                                        class="form-input" placeholder="Percentage/Grade">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" id="diplomaYear" name="diplomaYear" class="form-input"
-                                        placeholder="Year of Passing">
                                 </div>
                             </div>
                         </div>
@@ -279,6 +260,8 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">Semester-wise Performance</label>
+
+                            <!-- Semester 1 -->
                             <div class="semester-row">
                                 <h4>Semester 1</h4>
                                 <div class="form-row">
@@ -286,8 +269,14 @@
                                         <input type="text" id="sem1SGPA" name="sem1SGPA" class="form-input"
                                             placeholder="SGPA/Percentage">
                                     </div>
+                                    <div class="form-group">
+                                        <input type="text" id="sem1Backlog" name="sem1Backlog" class="form-input"
+                                            placeholder="Backlog Subjects">
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- Semester 2 -->
                             <div class="semester-row">
                                 <h4>Semester 2</h4>
                                 <div class="form-row">
@@ -295,8 +284,14 @@
                                         <input type="text" id="sem2SGPA" name="sem2SGPA" class="form-input"
                                             placeholder="SGPA/Percentage">
                                     </div>
+                                    <div class="form-group">
+                                        <input type="text" id="sem2Backlog" name="sem2Backlog" class="form-input"
+                                            placeholder="Backlog Subjects">
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- Semester 3 -->
                             <div class="semester-row">
                                 <h4>Semester 3</h4>
                                 <div class="form-row">
@@ -304,8 +299,14 @@
                                         <input type="text" id="sem3SGPA" name="sem3SGPA" class="form-input"
                                             placeholder="SGPA/Percentage">
                                     </div>
+                                    <div class="form-group">
+                                        <input type="text" id="sem3Backlog" name="sem3Backlog" class="form-input"
+                                            placeholder="Backlog Subjects">
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- Semester 4 -->
                             <div class="semester-row">
                                 <h4>Semester 4</h4>
                                 <div class="form-row">
@@ -313,8 +314,14 @@
                                         <input type="text" id="sem4SGPA" name="sem4SGPA" class="form-input"
                                             placeholder="SGPA/Percentage">
                                     </div>
+                                    <div class="form-group">
+                                        <input type="text" id="sem4Backlog" name="sem4Backlog" class="form-input"
+                                            placeholder="Backlog Subjects">
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- Semester 5 -->
                             <div class="semester-row">
                                 <h4>Semester 5</h4>
                                 <div class="form-row">
@@ -322,8 +329,14 @@
                                         <input type="text" id="sem5SGPA" name="sem5SGPA" class="form-input"
                                             placeholder="SGPA/Percentage">
                                     </div>
+                                    <div class="form-group">
+                                        <input type="text" id="sem5Backlog" name="sem5Backlog" class="form-input"
+                                            placeholder="Backlog Subjects">
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- Semester 6 -->
                             <div class="semester-row">
                                 <h4>Semester 6</h4>
                                 <div class="form-row">
@@ -331,8 +344,14 @@
                                         <input type="text" id="sem6SGPA" name="sem6SGPA" class="form-input"
                                             placeholder="SGPA/Percentage">
                                     </div>
+                                    <div class="form-group">
+                                        <input type="text" id="sem6Backlog" name="sem6Backlog" class="form-input"
+                                            placeholder="Backlog Subjects">
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- Semester 7 -->
                             <div class="semester-row">
                                 <h4>Semester 7</h4>
                                 <div class="form-row">
@@ -340,8 +359,14 @@
                                         <input type="text" id="sem7SGPA" name="sem7SGPA" class="form-input"
                                             placeholder="SGPA/Percentage">
                                     </div>
+                                    <div class="form-group">
+                                        <input type="text" id="sem7Backlog" name="sem7Backlog" class="form-input"
+                                            placeholder="Backlog Subjects">
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- Semester 8 -->
                             <div class="semester-row">
                                 <h4>Semester 8</h4>
                                 <div class="form-row">
@@ -349,126 +374,26 @@
                                         <input type="text" id="sem8SGPA" name="sem8SGPA" class="form-input"
                                             placeholder="SGPA/Percentage">
                                     </div>
+                                    <div class="form-group">
+                                        <input type="text" id="sem8Backlog" name="sem8Backlog" class="form-input"
+                                            placeholder="Backlog Subjects">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Backlog Subject Details (if any) -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Backlog Subject Details (if any)</label>
-                            <div class="form-row two-cols">
-                                <div class="form-group">
-                                    <label for="currentSemester" class="form-label">Current Semester <span
-                                            class="required">*</span></label>
-                                    <select id="currentSemester" name="currentSemester" class="form-select" required>
-                                        <option value="1">Semester 1</option>
-                                        <option value="2">Semester 2</option>
-                                        <option value="3">Semester 3</option>
-                                        <option value="4">Semester 4</option>
-                                        <option value="5">Semester 5</option>
-                                        <option value="6">Semester 6</option>
-                                        <option value="7">Semester 7</option>
-                                        <option value="8">Semester 8</option>
-                                    </select>
-                                    <div class="error-message">Please select your current semester</div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="activeBacklogsCount" class="form-label">Number of Active Backlogs (if
-                                        any)</label>
-                                    <input type="number" id="activeBacklogsCount" name="activeBacklogsCount"
-                                        class="form-input" min="0" placeholder="Enter number of backlogs">
-                                    <div class="error-message">Please enter a valid number</div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="backlogSubjectNames" class="form-label">Backlog Subject Names</label>
-                                    <textarea id="backlogSubjectNames" name="backlogSubjectNames"
-                                        class="form-input textarea"
-                                        placeholder="Enter backlog subject names, separated by commas"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+
+
 
                 </div>
 
                 <!-- Step 5: Performance in Career Development Activities -->
-                <div class="step-content" data-step="5">
-                    <h2 class="step-title">Performance in Career Development Activities</h2>
-                    <p class="step-description">Provide details of career development exams</p>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Aptitude Test</label>
-                            <div class="form-row two-cols">
-                                <div class="form-group">
-                                    <input type="text" id="aptitudeScore" name="aptitudeScore" class="form-input"
-                                        placeholder="Score/Rank">
-                                </div>
-                                <div class="form-group">
-                                    <input type="date" id="aptitudeDate" name="aptitudeDate" class="form-input">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Co-Cubes Test</label>
-                            <div class="form-row two-cols">
-                                <div class="form-group">
-                                    <input type="text" id="cocubesScore" name="cocubesScore" class="form-input"
-                                        placeholder="Score/Rank">
-                                </div>
-                                <div class="form-group">
-                                    <input type="date" id="cocubesDate" name="cocubesDate" class="form-input">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">GATE/CAT</label>
-                            <div class="form-row two-cols">
-                                <div class="form-group">
-                                    <input type="text" id="gatecatScore" name="gatecatScore" class="form-input"
-                                        placeholder="Score/Rank">
-                                </div>
-                                <div class="form-group">
-                                    <input type="date" id="gatecatDate" name="gatecatDate" class="form-input">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Other Exams</label>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <input type="text" id="otherExamName" name="otherExamName" class="form-input"
-                                        placeholder="Exam Name">
-                                </div>
-                            </div>
-                            <div class="form-row two-cols">
-                                <div class="form-group">
-                                    <input type="text" id="otherExamScore" name="otherExamScore" class="form-input"
-                                        placeholder="Score/Rank">
-                                </div>
-                                <div class="form-group">
-                                    <input type="date" id="otherExamDate" name="otherExamDate" class="form-input">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Step 6: Project and Internship Details -->
-                <div class="step-content" data-step="6">
+                <div class="step-content" data-step="5">
                     <h2 class="step-title">Project and Internship Details</h2>
                     <p class="step-description">Provide details of your projects and internships</p>
 
@@ -483,8 +408,8 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <input type="text" id="microProjectGuide" name="microProjectGuide"
-                                        class="form-input" placeholder="Name of Guide">
+                                    <input type="" id="microProjectGuide" name="microProjectGuide" class="form-input"
+                                        placeholder="Description">
                                 </div>
                             </div>
                         </div>
@@ -502,7 +427,7 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <input type="text" id="majorProjectGuide" name="majorProjectGuide"
-                                        class="form-input" placeholder="Name of Guide">
+                                        class="form-input" placeholder="Description">
                                 </div>
                             </div>
                         </div>
@@ -594,7 +519,7 @@
                 </div>
 
                 <!-- Step 7: Co-Curricular Activities -->
-                <div class="step-content" data-step="7">
+                <div class="step-content" data-step="6">
                     <h2 class="step-title">Co-Curricular Activities</h2>
                     <p class="step-description">Provide details of your co-curricular activities</p>
 
@@ -628,8 +553,53 @@
                                 </div>
                             </div>
 
-                            <!-- Add more activity rows as needed -->
-                            <button type="button" class="add-row-btn">+ Add Another Activity</button>
+                            <div class="activity-row">
+                                <div class="form-row four-cols">
+                                    <div class="form-group">
+                                        <input type="text" class="form-input" placeholder="Name of Activity">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="date" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-select">
+                                            <option value="">Level</option>
+                                            <option value="institute">Institute</option>
+                                            <option value="department">Department</option>
+                                            <option value="state">State</option>
+                                            <option value="national">National</option>
+                                            <option value="international">International</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-input" placeholder="Awards Received">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="activity-row">
+                                <div class="form-row four-cols">
+                                    <div class="form-group">
+                                        <input type="text" class="form-input" placeholder="Name of Activity">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="date" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-select">
+                                            <option value="">Level</option>
+                                            <option value="institute">Institute</option>
+                                            <option value="department">Department</option>
+                                            <option value="state">State</option>
+                                            <option value="national">National</option>
+                                            <option value="international">International</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-input" placeholder="Awards Received">
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -662,14 +632,58 @@
                                 </div>
                             </div>
 
-                            <!-- Add more organized activity rows as needed -->
-                            <button type="button" class="add-row-btn">+ Add Another Activity</button>
+                            <div class="activity-row">
+                                <div class="form-row four-cols">
+                                    <div class="form-group">
+                                        <input type="text" class="form-input" placeholder="Name of Activity">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="date" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-select">
+                                            <option value="">Level</option>
+                                            <option value="institute">Institute</option>
+                                            <option value="department">Department</option>
+                                            <option value="state">State</option>
+                                            <option value="national">National</option>
+                                            <option value="international">International</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-input" placeholder="Remark">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="activity-row">
+                                <div class="form-row four-cols">
+                                    <div class="form-group">
+                                        <input type="text" class="form-input" placeholder="Name of Activity">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="date" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-select">
+                                            <option value="">Level</option>
+                                            <option value="institute">Institute</option>
+                                            <option value="department">Department</option>
+                                            <option value="state">State</option>
+                                            <option value="national">National</option>
+                                            <option value="international">International</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-input" placeholder="Remark">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Step 8: SWOC Analysis -->
-                <div class="step-content" data-step="8">
+                <div class="step-content" data-step="7">
                     <h2 class="step-title">SWOC Analysis</h2>
                     <p class="step-description">Please provide your Strengths, Weaknesses, Opportunities, and Challenges
                     </p>
@@ -711,36 +725,21 @@
                 </div>
 
                 <!-- Step 9: Career Objectives and Skills -->
-                <div class="step-content" data-step="9">
+                <div class="step-content" data-step="8">
                     <h2 class="step-title">Career Objectives and Skills</h2>
                     <p class="step-description">Share your career goals and skills assessment</p>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">Career Objectives <span class="required">*</span></label>
-                            <div class="checkbox-group">
-                                <label class="checkbox-item">
-                                    <input type="checkbox" name="careerObjective" value="higher-studies">
-                                    <span>Higher studies</span>
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" name="careerObjective" value="job">
-                                    <span>Job</span>
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" name="careerObjective" value="job-courses">
-                                    <span>Job oriented courses</span>
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" name="careerObjective" value="competitive-exams">
-                                    <span>Competitive exams</span>
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" name="careerObjective" value="entrepreneur">
-                                    <span>Entrepreneur</span>
-                                </label>
-                            </div>
-                            <div class="error-message">Please select at least one career objective</div>
+                            <select id="careerObjectives" name="careerObjectives" class="form-select" required>
+                                <option value="">Select Level</option>
+                                <option value="Job Oriented">Job Oriented</option>
+                                <option value="Higher Studies">Higher Studies</option>
+                                <option value="Entrepreneur">Entrepreneur</option>
+
+                            </select>
+                            <div class="error-message">Please select your career objectives</div>
                         </div>
                     </div>
 
@@ -881,7 +880,7 @@
                 </div>
 
                 <!-- Step 10: Review & Submit -->
-                <div class="step-content" data-step="10">
+                <div class="step-content" data-step="9">
                     <h2 class="step-title">Review & Submit</h2>
                     <p class="step-description">Please review your information before submitting</p>
 
