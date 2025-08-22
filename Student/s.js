@@ -60,21 +60,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentStep === totalSteps) {
             populateReviewContent();
         }
-        
+
         // Show/hide placement reason field based on selection
         const campusPlacement = document.getElementById('campusPlacement');
         const placementReasonRow = document.getElementById('placementReasonRow');
-        
+
         if (campusPlacement) {
             if (campusPlacement.value === 'no') {
                 placementReasonRow.style.display = 'block';
             } else {
                 placementReasonRow.style.display = 'none';
             }
-            
+
             // Add event listener if not already added
             if (!campusPlacement.hasListener) {
-                campusPlacement.addEventListener('change', function() {
+                campusPlacement.addEventListener('change', function () {
                     if (this.value === 'no') {
                         placementReasonRow.style.display = 'block';
                     } else {
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         requiredFields.forEach(field => {
             const formGroup = field.closest('.form-group');
             const errorMessage = formGroup.querySelector('.error-message');
-            
+
             if (!field.value.trim()) {
                 field.classList.add('error');
                 if (errorMessage) errorMessage.style.display = 'block';
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const checkboxes = currentStepContent.querySelectorAll('input[name="careerObjective"]');
             const checked = Array.from(checkboxes).some(checkbox => checkbox.checked);
             const errorMessage = currentStepContent.querySelector('.checkbox-group + .error-message');
-            
+
             if (!checked) {
                 if (errorMessage) errorMessage.style.display = 'block';
                 isValid = false;
@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sections.forEach(section => {
             let sectionHasContent = false;
             let sectionHTML = `<h4>${section.title}</h4><div class="review-section">`;
-            
+
             section.fields.forEach(field => {
                 if (field === 'careerObjective') {
                     const interests = formData.getAll('careerObjective');
@@ -243,16 +243,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     const value = formData.get(field);
                     if (value) {
-                        const label = document.querySelector(`label[for="${field}"]`)?.textContent?.replace(' *', '') || 
-                                     document.querySelector(`label[for="${field}"]`)?.textContent || field;
+                        const label = document.querySelector(`label[for="${field}"]`)?.textContent?.replace(' *', '') ||
+                            document.querySelector(`label[for="${field}"]`)?.textContent || field;
                         sectionHTML += `<p><strong>${label}:</strong> ${value}</p>`;
                         sectionHasContent = true;
                     }
                 }
             });
-            
+
             sectionHTML += '</div>';
-            
+
             if (sectionHasContent) {
                 reviewHTML += sectionHTML;
             }
@@ -262,25 +262,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const activityRows = document.querySelectorAll('.activity-row');
         if (activityRows.length > 0) {
             reviewHTML += '<h4>Co-Curricular Activities</h4><div class="review-section">';
-            
+
             activityRows.forEach((row, index) => {
                 const inputs = row.querySelectorAll('input, select');
                 let activityText = '';
-                
+
                 inputs.forEach(input => {
                     if (input.value) {
-                        const label = input.parentElement.querySelector('label')?.textContent || 
-                                     input.getAttribute('placeholder') || 
-                                     input.name;
+                        const label = input.parentElement.querySelector('label')?.textContent ||
+                            input.getAttribute('placeholder') ||
+                            input.name;
                         activityText += `${label}: ${input.value}, `;
                     }
                 });
-                
+
                 if (activityText) {
                     reviewHTML += `<p><strong>Activity ${index + 1}:</strong> ${activityText.slice(0, -2)}</p>`;
                 }
             });
-            
+
             reviewHTML += '</div>';
         }
 
@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
             data.careerObjective = formData.getAll('careerObjective');
-            
+
             // Collect co-curricular activities
             const activities = [];
             document.querySelectorAll('.activity-row').forEach(row => {
@@ -308,11 +308,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
             data.activities = activities;
-            
+
             // Simulate form submission (replace with actual API call)
             console.log('Form submitted:', data);
             alert('Form submitted successfully! Check console for form data.');
-            
+
             // Reset form
             form.reset();
             currentStep = 1;
@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 validateStep(currentStep);
             }
         });
-        
+
         field.addEventListener('change', () => {
             if (field.classList.contains('error')) {
                 validateStep(currentStep);
@@ -336,13 +336,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Add row functionality for co-curricular activities
-    document.querySelectorAll('.add-row-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const activityRow = this.previousElementSibling.cloneNode(true);
-            activityRow.querySelectorAll('input, select').forEach(input => {
-                input.value = '';
-            });
-            this.parentNode.insertBefore(activityRow, this);
-        });
-    });
+
 });

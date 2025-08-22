@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Mentoring and Career Counselling Form</title>
     <link rel="stylesheet" href="./s.css">
+    <script src="../js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.AuthGuard) { window.AuthGuard.guardRoute(['student']); }
+        });
+    </script>
 </head>
 
 <body>
@@ -597,6 +603,7 @@
                                     <div class="form-group">
                                         <input type="text" class="form-input" placeholder="Awards Received">
                                     </div>
+                                    <hr>
                                 </div>
                             </div>
 

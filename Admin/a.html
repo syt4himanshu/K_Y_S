@@ -6,6 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="./a.css">
+  <script src="../js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.AuthGuard) { window.AuthGuard.guardRoute(['admin']); }
+    });
+  </script>
+  <script src="../js/auth.js"></script>
 
 </head>
 
@@ -1562,7 +1569,7 @@ FAC001,password123,teacher,John,Doe,john.doe@university.edu
       }
 
       try {
-        const response = await fetch("http://localhost:5000/auth/logout", {
+        const response = await fetch("http://localhost:5002/api/auth/logout", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

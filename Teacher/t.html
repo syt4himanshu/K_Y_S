@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teacher Dashboard</title>
     <link rel="stylesheet" href="t.css">
+    <script src="../js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.AuthGuard) { window.AuthGuard.guardRoute(['teacher']); }
+        });
+    </script>
 </head>
 
 <body>
@@ -692,7 +698,7 @@
                     return;
                 }
                 try {
-                    const response = await fetch("http://localhost:5000/auth/logout", {
+                    const response = await fetch("http://localhost:5002/api/auth/logout", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password</title>
+    <title>Change Password</title>
     <style>
         * {
             box-sizing: border-box;
@@ -93,6 +93,7 @@
             font-size: 0.85rem;
             margin-top: -0.5rem;
             margin-bottom: 0.8rem;
+            text-align: center;
         }
 
         /* Popup */
@@ -134,23 +135,24 @@
 <body>
 
     <div class="container">
-        <h2>Forgot Password</h2>
-        <form id="forgotForm">
+        <h2>Change Password</h2>
+        <form id="changeForm">
             <div class="form-group">
-                <label for="uid">User ID</label>
-                <input type="text" id="uid" required>
+                <label for="oldPassword">Old Password</label>
+                <input type="password" id="oldPassword" required>
+                <span class="toggle-password" onclick="toggleView('oldPassword', this)">👁</span>
             </div>
             <div class="form-group">
-                <label for="password">New Password</label>
-                <input type="password" id="password" required>
-                <span class="toggle-password" onclick="toggleView('password', this)">👁</span>
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" required>
+                <span class="toggle-password" onclick="toggleView('newPassword', this)">👁</span>
             </div>
             <div class="form-group">
-                <label for="confirmPassword">Confirm Password</label>
+                <label for="confirmPassword">Confirm New Password</label>
                 <input type="password" id="confirmPassword" required>
                 <span class="toggle-password" onclick="toggleView('confirmPassword', this)">👁</span>
-                <p class="error" id="errorMsg"></p>
             </div>
+            <p class="error" id="errorMsg"></p>
             <button type="submit">Change Password</button>
         </form>
     </div>
@@ -160,7 +162,7 @@
     </div>
 
     <script>
-        const form = document.getElementById("forgotForm");
+        const form = document.getElementById("changeForm");
         const errorMsg = document.getElementById("errorMsg");
         const popup = document.getElementById("popup");
 
@@ -175,33 +177,56 @@
             }
         }
 
-        form.addEventListener("submit", function (e) {
+        form.addEventListener("submit", async function (e) {
             e.preventDefault();
 
-            const uid = document.getElementById("uid").value.trim();
-            const password = document.getElementById("password").value;
+            const oldPassword = document.getElementById("oldPassword").value;
+            const newPassword = document.getElementById("newPassword").value;
             const confirmPassword = document.getElementById("confirmPassword").value;
 
-            if (!uid || !password || !confirmPassword) {
+            if (!oldPassword || !newPassword || !confirmPassword) {
                 errorMsg.textContent = "All fields are required.";
                 return;
             }
 
-            if (password !== confirmPassword) {
-                errorMsg.textContent = "Passwords do not match.";
+            if (newPassword !== confirmPassword) {
+                errorMsg.textContent = "New passwords do not match.";
                 return;
             }
 
             errorMsg.textContent = "";
 
-            // Simulate loading for 2 seconds before showing popup
-            setTimeout(() => {
+            try {
+                const res = await fetch("http://localhost:5002/api/auth/change-password", { // adjust your API URL
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + localStorage.getItem("access_token") // must have token
+                    },
+                    body: JSON.stringify({
+                        oldPassword,
+                        newPassword
+                    })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    errorMsg.textContent = data.message || "Something went wrong.";
+                    return;
+                }
+
+                // Success
                 popup.style.display = "block";
                 setTimeout(() => {
                     popup.style.display = "none";
                     form.reset();
                 }, 2000);
-            }, 2000);
+
+            } catch (err) {
+                errorMsg.textContent = "Network error. Please try again later.";
+                console.error(err);
+            }
         });
     </script>
 

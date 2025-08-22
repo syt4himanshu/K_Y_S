@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +20,7 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.05) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.05) 0%, transparent 50%);
         }
@@ -30,7 +31,7 @@
             padding: 48px 40px;
             width: 100%;
             max-width: 420px;
-            box-shadow: 
+            box-shadow:
                 0 20px 40px rgba(0, 0, 0, 0.1),
                 0 10px 20px rgba(0, 0, 0, 0.05),
                 inset 0 1px 0 rgba(255, 255, 255, 0.9);
@@ -43,6 +44,7 @@
                 opacity: 0;
                 transform: translateY(30px) scale(0.95);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -103,7 +105,7 @@
         .form-input:focus {
             border-color: #667eea;
             background: white;
-            box-shadow: 
+            box-shadow:
                 0 0 0 4px rgba(102, 126, 234, 0.1),
                 0 4px 12px rgba(102, 126, 234, 0.15);
             transform: translateY(-1px);
@@ -121,7 +123,7 @@
 
         .form-input.error:focus {
             border-color: #ef4444;
-            box-shadow: 
+            box-shadow:
                 0 0 0 4px rgba(239, 68, 68, 0.1),
                 0 4px 12px rgba(239, 68, 68, 0.15);
         }
@@ -201,13 +203,13 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.5s;
         }
 
         .login-button:hover {
             transform: translateY(-2px);
-            box-shadow: 
+            box-shadow:
                 0 12px 24px rgba(102, 126, 234, 0.3),
                 0 6px 12px rgba(102, 126, 234, 0.2);
         }
@@ -242,7 +244,7 @@
             transform: translate(-50%, -50%);
             width: 20px;
             height: 20px;
-            border: 2px solid rgba(255,255,255,0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             border-top: 2px solid white;
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -259,8 +261,13 @@
         }
 
         @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
         }
 
         .success-message {
@@ -315,6 +322,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="login-container">
         <div class="login-header">
@@ -325,29 +333,15 @@
         <form id="loginForm" novalidate>
             <div class="form-group">
                 <label class="form-label" for="username">Username</label>
-                <input 
-                    type="text" 
-                    id="username" 
-                    name="username" 
-                    class="form-input" 
-                    placeholder="Enter your username"
-                    required
-                    autocomplete="username"
-                />
+                <input type="text" id="username" name="username" class="form-input" placeholder="Enter your username"
+                    required autocomplete="username" />
                 <div class="error-message" id="usernameError"></div>
             </div>
 
             <div class="form-group">
                 <label class="form-label" for="password">Password</label>
-                <input 
-                    type="password" 
-                    id="password" 
-                    name="password" 
-                    class="form-input" 
-                    placeholder="Enter your password"
-                    required
-                    autocomplete="current-password"
-                />
+                <input type="password" id="password" name="password" class="form-input"
+                    placeholder="Enter your password" required autocomplete="current-password" />
                 <div class="error-message" id="passwordError"></div>
             </div>
 
@@ -373,7 +367,7 @@
     <script>
         class LoginManager {
             constructor() {
-                this.baseURL = 'http://localhost:5000'; // Adjust port if needed
+                this.baseURL = 'http://localhost:5002';
                 this.initializeElements();
                 this.attachEventListeners();
             }
@@ -419,7 +413,7 @@
             validateField(input, errorElementId, validationFn) {
                 const errorElement = document.getElementById(errorElementId);
                 const isValid = validationFn(input.value.trim());
-                
+
                 if (!isValid.valid) {
                     input.classList.add('error');
                     errorElement.textContent = isValid.message;
@@ -491,13 +485,13 @@
                 const password = this.passwordInput.value;
 
                 try {
-                    const response = await fetch(`${this.baseURL}/auth/login`, {
+                    const response = await fetch(`${this.baseURL}/api/auth/login`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                            username: username,
+                            uid: username,
                             password: password
                         })
                     });
@@ -507,22 +501,25 @@
                     if (response.ok) {
                         // Login successful
                         console.log('Login successful:', data);
-                        
+
                         // Store JWT token and user role
-                        localStorage.setItem('access_token', data.access_token);
-                        localStorage.setItem('user_role', data.role);
-                        
+                        localStorage.setItem('access_token', data.accessToken);
+                        if (data.user && data.user.role) {
+                            localStorage.setItem('user_role', data.user.role);
+                        }
+
                         if (this.rememberCheckbox.checked) {
                             localStorage.setItem('remember_user', username);
                         }
 
                         // Show success message
                         this.successMessage.classList.add('show');
-                        
+
                         // Redirect after delay
                         setTimeout(() => {
-                            this.redirectUser(data.role, username);
-                        }, 2000);
+                            const role = (data.user && data.user.role) || localStorage.getItem('user_role');
+                            this.redirectUser(role);
+                        }, 1200);
 
                     } else {
                         // Login failed
@@ -547,38 +544,22 @@
                 this.loginButton.disabled = false;
             }
 
-            redirectUser(role, username) {
-                // Check first character of username for role-based routing
-                const firstChar = username.charAt(0).toUpperCase();
-                
-                switch(firstChar) {
-                    case 'S':
-                        window.location.href = './Student/s.html';
-                        break;
-                    case 'A':
-                        window.location.href = './Admin/a.html';
-                        break;
-                    case 'F':
-                        window.location.href = './Teacher/t.html';
-                        break;
-                    default:
-                        // Fallback to role-based routing
-                        if (role === 'admin') {
-                            window.location.href = './Admin/a.html';
-                        } else if (role === 'teacher') {
-                            window.location.href = './Teacher/t.html';
-                        } else if (role === 'student') {
-                            window.location.href = './Student/s.html';
-                        } else {
-                            window.location.href = '/dashboard';
-                        }
+            redirectUser(role) {
+                if (role === 'admin') {
+                    window.location.href = './Admin/a.html';
+                } else if (role === 'teacher') {
+                    window.location.href = './Teacher/t.html';
+                } else if (role === 'student') {
+                    window.location.href = './Student/s.html';
+                } else {
+                    window.location.href = './homepage.html';
                 }
             }
 
             // Method to make authenticated requests after login
             async makeAuthenticatedRequest(url, method = 'GET', body = null) {
                 const token = localStorage.getItem('access_token');
-                
+
                 if (!token) {
                     throw new Error('No access token found. Please login.');
                 }
@@ -596,7 +577,7 @@
                 }
 
                 const response = await fetch(url, config);
-                
+
                 if (response.status === 401) {
                     // Token expired or invalid
                     localStorage.removeItem('access_token');
@@ -604,7 +585,7 @@
                     window.location.href = '/login';
                     return;
                 }
-                
+
                 return await response.json();
             }
         }
@@ -623,9 +604,18 @@
             // Check if already logged in
             const token = localStorage.getItem('access_token');
             if (token) {
-                // Optionally redirect if already logged in
-                // const role = localStorage.getItem('user_role');
-                // loginManager.redirectUser(role, '');
+                // Verify token with backend and redirect
+                fetch('http://localhost:5002/api/auth/verify-token', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                })
+                    .then(r => r.json())
+                    .then(res => {
+                        if (res && res.valid) {
+                            const role = res.user?.role || localStorage.getItem('user_role');
+                            loginManager.redirectUser(role);
+                        }
+                    })
+                    .catch(() => { });
             }
         });
 
@@ -635,4 +625,5 @@
         });
     </script>
 </body>
+
 </html>
